@@ -40,29 +40,21 @@ const SectionRating = styled(View)`
   justify-content: space-between;
 `;
 const Open = styled(View)`
-padding-top: ${(props) => props.theme.space[2]};
+  padding-top: ${(props) => props.theme.space[2]};
   padding-bottom: ${(props) => props.theme.space[2]};
 `;
 
 export const RestaurantsInfo = ({ restaurants = {} }) => {
-  const {
-    name = "Some Restaurants",
-    icon,
-    photos = [
-      "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
-    ],
-    address = "100 some random street",
-    isOpenNow = true,
-    rating = 4,
-    isClosedTemporarily,
-  } = restaurants;
-
-  const RatingArry = Array.from(new Array(rating));
+  const RatingArry = Array.from(new Array(4));
   return (
-    <RestaurantCard elevation={5} key={name}>
-      <RestaurantCardCovered source={{ uri: photos[0] }} />
+    <RestaurantCard elevation={5} key={restaurants.item.name}>
+      <RestaurantCardCovered
+        source={{
+          uri: restaurants.item.photos[0],
+        }}
+      />
       <Info>
-        <Title>{name}</Title>
+        <Title>{restaurants.item.name}</Title>
         <SectionRating>
           <Rating>
             {RatingArry.map((item, index) => {
@@ -74,7 +66,7 @@ export const RestaurantsInfo = ({ restaurants = {} }) => {
           </Open>
         </SectionRating>
 
-        <Address>{address}</Address>
+        <Address>{restaurants.item.vicinity}</Address>
       </Info>
     </RestaurantCard>
   );
