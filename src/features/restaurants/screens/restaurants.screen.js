@@ -1,5 +1,5 @@
 import React from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Pressable } from "react-native";
 import { RestaurantsInfo } from "../components/restaurant-info.components";
 import styled from "styled-components/native";
 import { useContext } from "react";
@@ -9,7 +9,7 @@ import { Search } from "../components/search.component";
 
 const RestaurantContainer = styled(View)`
   background-color: ${(props) => props.theme.colors.ui.backgroundColor};
-  flex: 0.9;
+  margin-top: 100px;
 `;
 
 const Container = styled(View)`
@@ -21,7 +21,7 @@ const AppLoading = styled(ActivityIndicator)`
   justify-content: center;
 `;
 
-export const RestaurantsScreen = () => {
+export const RestaurantsScreen = ({ navigation }) => {
   const res = useContext(RestaurantsContext);
   if (res.isLoading) {
     return <AppLoading animating={true} color={Colors.lightBlue300} />;
@@ -33,7 +33,17 @@ export const RestaurantsScreen = () => {
         <FlatList
           data={res.restaurantsData}
           renderItem={(item) => {
-            return <RestaurantsInfo restaurants={item} />;
+            return (
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("Restaurants Detail", {
+                    restaurants: item,
+                  })
+                }
+              >
+                <RestaurantsInfo restaurants={item} />
+              </Pressable>
+            );
           }}
           keyExtractor={(item) => item.name}
         />
