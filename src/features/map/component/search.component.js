@@ -12,7 +12,7 @@ const SearchbarContainer = styled(View)`
   padding-right: 10px;
   position: absolute;
   width: 100%;
-  z-index: 999;
+  z-index: 9999;
 `;
 export const Search = () => {
   const { keywords, search } = useContext(LoctionContext);
@@ -21,6 +21,7 @@ export const Search = () => {
   return (
     <SearchbarContainer>
       <Searchbar
+        icon="map"
         placeholder="Search
         "
         value={searchTerm}
