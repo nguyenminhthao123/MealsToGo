@@ -7,6 +7,7 @@ export const LoactionContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [keywords, setKeywords] = useState("San Francisco");
   const [location, setLocation] = useState(null);
+  const [viewport, setViewport] = useState(null);
   const onSearch = (key) => {
     setKeywords(key);
     setIsLoading(false);
@@ -18,7 +19,8 @@ export const LoactionContextProvider = ({ children }) => {
     locationResquest(keywords.toLowerCase())
       .then(transformDataLocation)
       .then((results) => {
-        setLocation(results);
+        setLocation(results.locaction);
+        setViewport(results.viewport);
       })
       .catch((err) => {
         console.log(err);
@@ -31,6 +33,7 @@ export const LoactionContextProvider = ({ children }) => {
         isLoading,
         search: onSearch,
         keywords,
+        viewport,
       }}
     >
       {children}
